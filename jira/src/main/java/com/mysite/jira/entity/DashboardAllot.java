@@ -1,0 +1,48 @@
+package com.mysite.jira.entity;
+
+import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class DashboardAllot {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "allot_seq")
+	@SequenceGenerator(name = "allot_seq", sequenceName = "allot_seq", allocationSize = 1)
+	private Integer idx;
+	
+	@Column
+	@NotNull
+	private Integer pageNum;
+	
+	@Column(columnDefinition = "VARCHAR2(20)")
+	private String divOrder;
+	
+	@Min(0)
+	@Max(1)
+	@NotNull
+	private Integer isSave;
+	
+	@ManyToOne
+	private Dashboard dashboard;
+	
+	@ManyToMany
+	Set<DashboardCol> col;
+	
+}
